@@ -1,6 +1,15 @@
-import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  StyleSheet,
+  Alert
+} from 'react-native';
+
 import { useRouter } from 'expo-router';
 import { useState } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function Cadastro() {
   const router = useRouter();
@@ -9,18 +18,35 @@ export default function Cadastro() {
   const [salaManha, setSalaManha] = useState('');
   const [salaTarde, setSalaTarde] = useState('');
 
-  function salvarSala() {
-    console.log({
-      dia,
-      salaManha,
-      salaTarde
-    });
+  async function salvarSala() {
+    if (!dia || !salaManha || !salaTarde) {
+      Alert.alert('Preencha todos os campos');
+      return;
+    }
 
-    alert('Sala cadastrada com sucesso!');
+    const novaSala = {
+      manha: salaManha,
+      tarde: salaTarde
+    };
 
-    setDia('');
-    setSalaManha('');
-    setSalaTarde('');
+    try {
+      const dadosAtuais = await AsyncStorage.getItem('salas');
+      let salas = dadosAtuais ? JSON.parse(dadosAtuais) : {};
+
+      salas[dia] = novaSala;
+
+      await AsyncStorage.setItem('salas', JSON.stringify(salas));
+
+      Alert.alert('Sala cadastrada com sucesso!');
+
+      setDia('');
+      setSalaManha('');
+      setSalaTarde('');
+
+      router.back();
+    } catch (error) {
+      Alert.alert('Erro ao salvar');
+    }
   }
 
   return (
@@ -36,7 +62,7 @@ export default function Cadastro() {
       />
 
       <TextInput
-        placeholder="Sala da manhã (até 12h)"
+        placeholder="Sala da manhã"
         placeholderTextColor="#999"
         style={styles.input}
         value={salaManha}
@@ -44,25 +70,15 @@ export default function Cadastro() {
       />
 
       <TextInput
-        placeholder="Sala da tarde (12h às 18h)"
+        placeholder="Sala da tarde"
         placeholderTextColor="#999"
         style={styles.input}
         value={salaTarde}
         onChangeText={setSalaTarde}
-        />
+      />
 
-      <TouchableOpacity
-        style={styles.botao}
-        onPress={salvarSala}
-      >
+      <TouchableOpacity style={styles.botao} onPress={salvarSala}>
         <Text style={styles.botaoTexto}>Salvar</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity
-        style={styles.botaoVoltar}
-        onPress={() => router.back()}
-      >
-        <Text style={styles.botaoTexto}>Voltar</Text>
       </TouchableOpacity>
     </View>
   );

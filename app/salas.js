@@ -1,9 +1,60 @@
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  Alert
+} from 'react-native';
+
 import { useRouter } from 'expo-router';
-import { salasDisponiveis } from '../data/salas';
+import { useEffect, useState } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function Salas() {
   const router = useRouter();
+  const [salasDisponiveis, setSalasDisponiveis] = useState({});
+
+  async function carregarSalas() {
+    const dados = await AsyncStorage.getItem('salas');
+
+    if (dados) {
+      setSalasDisponiveis(JSON.parse(dados));
+    } else {
+      setSalasDisponiveis({});
+    }
+  }
+
+  async function excluirDia(dia) {
+    Alert.alert(
+      'Confirmar exclusão',
+      `Deseja realmente excluir ${dia}?`,
+      [
+        {
+          text: 'Cancelar',
+          style: 'cancel'
+        },
+        {
+          text: 'Excluir',
+          onPress: async () => {
+            const novasSalas = { ...salasDisponiveis };
+
+            delete novasSalas[dia];
+
+            await AsyncStorage.setItem(
+              'salas',
+              JSON.stringify(novasSalas)
+            );
+
+            setSalasDisponiveis(novasSalas);
+          }
+        }
+      ]
+    );
+  }
+
+  useEffect(() => {
+    carregarSalas();
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -20,6 +71,15 @@ export default function Salas() {
           <Text style={styles.texto}>
             12h às 18h → Sala {horarios.tarde}
           </Text>
+
+          <TouchableOpacity
+            style={styles.botaoExcluir}
+            onPress={() => excluirDia(dia)}
+          >
+            <Text style={styles.botaoTexto}>
+              Excluir Dia
+            </Text>
+          </TouchableOpacity>
         </View>
       ))}
 
@@ -81,5 +141,13 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontWeight: '600',
     fontSize: 16
+  },
+
+  botaoExcluir: {
+    backgroundColor: '#B22222',
+    padding: 10,
+    borderRadius: 10,
+    alignItems: 'center',
+    marginTop: 12
   }
 });
