@@ -117,7 +117,7 @@ const styles = StyleSheet.create({
   },
 
   dia: {
-    color: '#F57726',
+    color: '#FF0090',
     fontSize: 18,
     fontWeight: 'bold',
     marginBottom: 8
@@ -131,7 +131,7 @@ const styles = StyleSheet.create({
 
   botao: {
     marginTop: 20,
-    backgroundColor: '#F57726',
+    backgroundColor: '#FF0090',
     padding: 14,
     borderRadius: 12,
     alignItems: 'center'

@@ -1,0 +1,30 @@
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { useRouter } from 'expo-router';
+
+export default function Home() {
+  const router = useRouter();
+
+  return (
+    <View style={styles.container}>
+        <Text style={styles.titulo}>Salas Livres</Text>
+        <Text style={styles.subtitulo}>
+            Consulte salas disponíveis por andar
+        </Text>
+
+        <TouchableOpacity
+            style={styles.botao}
+            onPress={() => router.push('/salas')}
+        >
+            <Text style={styles.botaoTexto}>Ver Salas</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+            style={styles.botao}
+            onPress={() => router.push('/cadastro')}
+        >
+            <Text style={styles.botaoTexto}>Cadastrar Sala</Text>
+        </TouchableOpacity>
+
+    </View>
+  );
+}

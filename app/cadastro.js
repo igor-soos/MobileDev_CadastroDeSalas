@@ -110,7 +110,7 @@ const styles = StyleSheet.create({
   },
 
   botao: {
-    backgroundColor: '#F57726',
+    backgroundColor: '#FF0090',
     padding: 15,
     borderRadius: 12,
     alignItems: 'center',
