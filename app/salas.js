@@ -25,32 +25,17 @@ export default function Salas() {
   }
 
   async function excluirDia(dia) {
-    Alert.alert(
-      'Confirmar exclusão',
-      `Deseja realmente excluir ${dia}?`,
-      [
-        {
-          text: 'Cancelar',
-          style: 'cancel'
-        },
-        {
-          text: 'Excluir',
-          onPress: async () => {
-            const novasSalas = { ...salasDisponiveis };
+  const novasSalas = { ...salasDisponiveis };
 
-            delete novasSalas[dia];
+  delete novasSalas[dia];
 
-            await AsyncStorage.setItem(
-              'salas',
-              JSON.stringify(novasSalas)
-            );
+  await AsyncStorage.setItem(
+    'salas',
+    JSON.stringify(novasSalas)
+  );
 
-            setSalasDisponiveis(novasSalas);
-          }
-        }
-      ]
-    );
-  }
+  setSalasDisponiveis(novasSalas);
+}
 
   useEffect(() => {
     carregarSalas();
