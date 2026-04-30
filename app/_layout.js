@@ -16,18 +16,19 @@ function Rotas() {
     );
   }
 
-  return (
-    <Stack
-      screenOptions={{
-        headerShown: false,
-        animation: 'fade'
-      }}
-    >
-      <Stack.Screen name="index" />
-      <Stack.Screen name="salas" />
-      <Stack.Screen name="cadastro" />
-    </Stack>
-  );
+return (
+  <Stack
+    screenOptions={{
+      headerShown: false,
+      presentation: 'transparentModal',
+      animation: 'fade'
+    }}
+  >
+    <Stack.Screen name="index" />
+    <Stack.Screen name="salas" />
+    <Stack.Screen name="cadastro" />
+  </Stack>
+);
 }
 
 export default function Layout() {
