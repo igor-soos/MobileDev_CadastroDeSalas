@@ -42,6 +42,7 @@ export default function Salas() {
   }, []);
 
   return (
+    <View style={styles.wrapper}>
     <View style={styles.container}>
       <Text style={styles.titulo}>Salas Livres da Semana</Text>
 
@@ -66,6 +67,7 @@ export default function Salas() {
             </Text>
           </TouchableOpacity>
         </View>
+       
       ))}
 
       <TouchableOpacity
@@ -75,15 +77,17 @@ export default function Salas() {
         <Text style={styles.botaoTexto}>Voltar</Text>
       </TouchableOpacity>
     </View>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    width: '90%',
+    maxWidth: 400,
     backgroundColor: '#121212',
-    padding: 20,
-    paddingTop: 60
+    padding: 25,
+    borderRadius: 16,
   },
 
   titulo: {
@@ -134,5 +138,12 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     alignItems: 'center',
     marginTop: 12
+  },
+
+  wrapper: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#0f0f0f'
   }
 });

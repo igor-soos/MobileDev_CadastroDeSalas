@@ -50,6 +50,7 @@ export default function Cadastro() {
   }
 
   return (
+    <View style={styles.wrapper}>
     <View style={styles.container}>
       <Text style={styles.titulo}>Cadastrar Sala Livre</Text>
 
@@ -81,15 +82,17 @@ export default function Cadastro() {
         <Text style={styles.botaoTexto}>Salvar</Text>
       </TouchableOpacity>
     </View>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    width: '90%',
+    maxWidth: 400,
     backgroundColor: '#121212',
-    padding: 20,
-    justifyContent: 'center'
+    padding: 25,
+    borderRadius: 16,
   },
 
   titulo: {
@@ -129,5 +132,12 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontWeight: 'bold',
     fontSize: 16
+  },
+
+  wrapper: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#0f0f0f'
   }
 });

@@ -117,6 +117,7 @@ export default function CadastroUsuario() {
   }
 
   return (
+    <View style={styles.wrapper}>
     <View style={styles.container}>
       <Text style={styles.titulo}>Criar Conta</Text>
 
@@ -181,15 +182,17 @@ export default function CadastroUsuario() {
         </Text>
       </TouchableOpacity>
     </View>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    width: '90%',
+    maxWidth: 400,
     backgroundColor: '#121212',
-    justifyContent: 'center',
-    padding: 20
+    padding: 25,
+    borderRadius: 16,
   },
 
   titulo: {
@@ -238,5 +241,12 @@ const styles = StyleSheet.create({
 
   botaoDesabilitado: {
     opacity: 0.5
+  },
+
+  wrapper: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#0f0f0f'
   }
 });
